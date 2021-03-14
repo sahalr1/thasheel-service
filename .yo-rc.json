@@ -1,0 +1,40 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.thasheel",
+      "nativeLanguage": "en"
+    },
+    "jhipsterVersion": "6.10.0",
+    "applicationType": "monolith",
+    "baseName": "thasheel",
+    "packageName": "com.thasheel",
+    "packageFolder": "com/thasheel",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "no",
+    "websocket": "spring-websocket",
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "OGI4Zjg2MDRmNGYxMTUxMzUxMTgwYzQxMGQ2YTg0MWQ5OWEzZDBiMjQ3OGZmODgxOGE3YmQzZWE0ZmJmOGNjYTA0Y2RkZmY1NjZjYmFhNWQxZTg5YmY1YjY0MjFmMjZlNmYyOWIzMTEwNWM1MzViOWZmZmY4YmE5ODVkYjg4NjI=",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "skipClient": true,
+    "creationTimestamp": 1615725509751,
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": true,
+    "nativeLanguage": "en",
+    "languages": ["en", "ar-ly"],
+    "blueprints": []
+  }
+}

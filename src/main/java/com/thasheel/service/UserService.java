@@ -3,7 +3,9 @@ package com.thasheel.service;
 import com.thasheel.config.Constants;
 import com.thasheel.domain.Authority;
 import com.thasheel.domain.User;
+import com.thasheel.domain.UserExtra;
 import com.thasheel.repository.AuthorityRepository;
+import com.thasheel.repository.UserExtraRepository;
 import com.thasheel.repository.UserRepository;
 import com.thasheel.security.AuthoritiesConstants;
 import com.thasheel.security.SecurityUtils;
@@ -35,15 +37,19 @@ public class UserService {
     private final Logger log = LoggerFactory.getLogger(UserService.class);
 
     private final UserRepository userRepository;
+    private final UserExtraRepository userExtraRepository;
 
     private final PasswordEncoder passwordEncoder;
 
     private final AuthorityRepository authorityRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, 
+    		UserExtraRepository userExtraRepository
+    		,AuthorityRepository authorityRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
+        this.userExtraRepository=userExtraRepository;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -80,7 +86,7 @@ public class UserService {
             });
     }
 
-    public User registerUser(UserDTO userDTO, String password) {
+    public User registerUser(UserDTO userDTO, String password,String phone) {
         userRepository.findOneByLogin(userDTO.getLogin().toLowerCase()).ifPresent(existingUser -> {
             boolean removed = removeNonActivatedUser(existingUser);
             if (!removed) {
@@ -93,6 +99,11 @@ public class UserService {
                 throw new EmailAlreadyUsedException();
             }
         });
+        userExtraRepository.findByPhone(phone).ifPresent(existingUser->{
+        	throw new MobileNumberAlreadyusedException();
+        	
+        });
+        
         User newUser = new User();
         String encryptedPassword = passwordEncoder.encode(password);
         newUser.setLogin(userDTO.getLogin().toLowerCase());
@@ -106,14 +117,20 @@ public class UserService {
         newUser.setImageUrl(userDTO.getImageUrl());
         newUser.setLangKey(userDTO.getLangKey());
         // new user is not active
-        newUser.setActivated(false);
+        newUser.setActivated(true);
+        
         // new user gets registration key
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         Set<Authority> authorities = new HashSet<>();
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
-        userRepository.save(newUser);
+        newUser= userRepository.save(newUser);
+        UserExtra userExtra=new UserExtra();
+        userExtra.setPhone(phone);
+        userExtra.setUser(newUser);
+        userExtraRepository.save(userExtra);
         log.debug("Created Information for User: {}", newUser);
+        log.debug("Created Information for User Extra: {}", userExtra);
         return newUser;
     }
 

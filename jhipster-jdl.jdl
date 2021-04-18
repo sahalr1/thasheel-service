@@ -1,0 +1,99 @@
+entity Customer{
+firstName String,
+lastName String,
+idpCode String unique,
+countryId Long,
+isEnabled Boolean,
+isCompletePofile Boolean
+}
+entity NewsApplied
+{
+customerId Long,
+newsId Long,
+branchManagerId Long,
+createdTime Instant,
+updatedTime Instant,
+reprocessDescription String,
+currentStatus NEWSAPPLIEDSTATUS
+}
+entity NewsAppliedStatusHistory
+{
+status NEWSAPPLIEDSTATUS,
+description String,
+updatedTime Instant,
+actionDoneBranchManagerId String
+
+
+}
+enum NEWSAPPLIEDSTATUS
+{
+APPLIED , REPROCESS , APPROVED, REJECTED , CANCELLED
+}
+
+entity BranchManager{
+name String,
+idpCode String unique,
+isEnabled Boolean
+}
+entity Branch{
+	streetAddress String,
+	postalCode String,
+	city String,
+	stateProvince String
+}
+
+entity MajorAdmin{
+name String,
+idpCode String unique,
+isEnabled Boolean
+
+}
+entity UserExtra
+{
+phone String,
+latitude String,
+longitude String
+}
+
+entity Country {
+	countryName String
+}
+
+entity News
+{
+description String,
+file Blob,
+fileUrl String,
+createdOn Instant,
+createdByMajorAdminId Long
+}
+entity Comment{
+description String
+}
+entity SavedNews{
+customerId Long,
+newsId Long
+}
+relationship OneToMany {
+	Country{branches} to Branch{country},
+    NewsApplied{history} to NewsAppliedStatusHistory
+}
+relationship OneToMany {
+	News{comments} to Comment{news}
+}
+relationship OneToMany {
+	Customer{comments} to Comment{customer}
+}
+relationship OneToOne {
+	Branch{manager} to BranchManager{branch},
+UserExtra{user} to User
+}
+relationship OneToMany{
+Customer{comments} to Comment{customer}
+}
+
+relationship ManyToOne{
+News{branch} to Branch
+}
+
+service all with serviceImpl

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <!--
+        Added the constraints for entity Branch.
+    -->
+    <changeSet id="20210327144022-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="manager_id"
+                                 baseTableName="branch"
+                                 constraintName="fk_branch_manager_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="branch_manager"/>
+
+        <addForeignKeyConstraint baseColumnNames="country_id"
+                                 baseTableName="branch"
+                                 constraintName="fk_branch_country_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="country"/>
+
+    </changeSet>
+</databaseChangeLog>

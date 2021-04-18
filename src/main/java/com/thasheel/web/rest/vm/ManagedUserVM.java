@@ -11,8 +11,18 @@ public class ManagedUserVM extends UserDTO {
     public static final int PASSWORD_MIN_LENGTH = 4;
 
     public static final int PASSWORD_MAX_LENGTH = 100;
+    
+    private String phone;
+    
+    public String getPhone() {
+		return phone;
+	}
 
-    @Size(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH)
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	@Size(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH)
     private String password;
 
     public ManagedUserVM() {

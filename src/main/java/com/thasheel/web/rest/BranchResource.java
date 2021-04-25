@@ -21,7 +21,7 @@ import java.util.Optional;
  * REST controller for managing {@link com.thasheel.domain.Branch}.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/apis")
 public class BranchResource {
 
     private final Logger log = LoggerFactory.getLogger(BranchResource.class);

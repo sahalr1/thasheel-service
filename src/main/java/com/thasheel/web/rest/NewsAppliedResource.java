@@ -21,7 +21,7 @@ import java.util.Optional;
  * REST controller for managing {@link com.thasheel.domain.NewsApplied}.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/apis")
 public class NewsAppliedResource {
 
     private final Logger log = LoggerFactory.getLogger(NewsAppliedResource.class);

@@ -40,4 +40,6 @@ public interface SavedNewsService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+	List<SavedNews> findAllByCustomerId(Long CustomerId);
 }

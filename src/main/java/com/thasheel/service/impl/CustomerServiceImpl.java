@@ -53,4 +53,11 @@ public class CustomerServiceImpl implements CustomerService {
         log.debug("Request to delete Customer : {}", id);
         customerRepository.deleteById(id);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+	public Optional<Customer> findByIdpCode(String idpCode) {
+    	log.debug("Request to get Customer : {}", idpCode);
+        return customerRepository.findByIdpCode(idpCode);
+	}
 }

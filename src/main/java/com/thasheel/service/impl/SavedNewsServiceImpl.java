@@ -53,4 +53,11 @@ public class SavedNewsServiceImpl implements SavedNewsService {
         log.debug("Request to delete SavedNews : {}", id);
         savedNewsRepository.deleteById(id);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+	public List<SavedNews> findAllByCustomerId(Long CustomerId) {
+    	log.debug("Request to get all SavedNews");
+        return savedNewsRepository.findAllByCustomerId(CustomerId);
+	}
 }

@@ -21,7 +21,7 @@ import java.util.Optional;
  * REST controller for managing {@link com.thasheel.domain.UserExtra}.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/apis")
 public class UserExtraResource {
 
     private final Logger log = LoggerFactory.getLogger(UserExtraResource.class);

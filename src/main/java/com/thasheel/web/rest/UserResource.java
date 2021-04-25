@@ -57,7 +57,7 @@ import java.util.*;
  * Another option would be to have a specific JPA entity graph to handle this case.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/apis")
 public class UserResource {
 
     private final Logger log = LoggerFactory.getLogger(UserResource.class);

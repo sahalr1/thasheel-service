@@ -23,7 +23,7 @@ import java.util.stream.StreamSupport;
  * REST controller for managing {@link com.thasheel.domain.BranchManager}.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/apis")
 public class BranchManagerResource {
 
     private final Logger log = LoggerFactory.getLogger(BranchManagerResource.class);

@@ -40,4 +40,8 @@ public interface NewsAppliedService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    Optional<NewsApplied> checkUserAlreadyApplied(Long newsId, Long customerId);
+
+	List<NewsApplied> findAllByCustomerId(Long customerId);
 }

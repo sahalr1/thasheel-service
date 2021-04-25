@@ -33,6 +33,15 @@ public interface CustomerService {
      * @return the entity.
      */
     Optional<Customer> findOne(Long id);
+    
+    
+    /**
+     * Get the "idpCode" customer.
+     *
+     * @param idpCode the id of the entity.
+     * @return the entity.
+     */
+    Optional<Customer> findByIdpCode(String idpCode);
 
     /**
      * Delete the "id" customer.

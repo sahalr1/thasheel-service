@@ -22,7 +22,7 @@ import java.util.Optional;
  * REST controller for managing {@link com.thasheel.domain.MajorAdmin}.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/apis")
 public class MajorAdminResource {
 
     private final Logger log = LoggerFactory.getLogger(MajorAdminResource.class);

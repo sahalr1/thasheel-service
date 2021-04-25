@@ -103,4 +103,19 @@ public class MailService {
         log.debug("Sending password reset email to '{}'", user.getEmail());
         sendEmailFromTemplate(user, "mail/passwordResetEmail", "email.reset.title");
     }
+    
+    
+    @Async
+    public void sendApplicationAppliedEmail(User user) {
+        log.debug("Sending password reset email to '{}'", user.getEmail());
+        Locale locale = Locale.forLanguageTag(user.getLangKey());
+        Context context = new Context(locale);
+        context.setVariable(USER, user);
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
+        String content = templateEngine.process("mail/applicationAppliedEmail", context);
+        String subject = messageSource.getMessage("email.application.title", null, locale);
+        sendEmail(user.getEmail(), subject, content, false, true);
+    }
+    
+    
 }

@@ -21,7 +21,7 @@ import java.util.Optional;
  * REST controller for managing {@link com.thasheel.domain.Country}.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/apis")
 public class CountryResource {
 
     private final Logger log = LoggerFactory.getLogger(CountryResource.class);

@@ -21,7 +21,7 @@ import java.util.Optional;
  * REST controller for managing {@link com.thasheel.domain.Comment}.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/apis")
 public class CommentResource {
 
     private final Logger log = LoggerFactory.getLogger(CommentResource.class);

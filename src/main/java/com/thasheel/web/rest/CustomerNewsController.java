@@ -146,13 +146,8 @@ public class CustomerNewsController {
         log.debug("REST request to delete SavedNews : {}", id);
         savedNewsService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
-    }@DeleteMapping("/saved-news/{id}")
-    public ResponseEntity<Void> deleteSavedNews(@PathVariable Long id) {
-        log.debug("REST request to delete SavedNews : {}", id);
-        savedNewsService.delete(id);
-        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
-    
+
     
     
 

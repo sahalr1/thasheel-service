@@ -1,7 +1,10 @@
 package com.thasheel.service.impl;
 
 import com.thasheel.service.CountryService;
+import com.thasheel.service.CustomerService;
+import com.thasheel.service.UserService;
 import com.thasheel.domain.Country;
+import com.thasheel.domain.Customer;
 import com.thasheel.repository.CountryRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,9 +25,13 @@ public class CountryServiceImpl implements CountryService {
     private final Logger log = LoggerFactory.getLogger(CountryServiceImpl.class);
 
     private final CountryRepository countryRepository;
-
-    public CountryServiceImpl(CountryRepository countryRepository) {
+    private final CustomerService customerService;
+    private final UserService userService;
+    public CountryServiceImpl(UserService userService, CustomerService customerService,CountryRepository countryRepository) {
         this.countryRepository = countryRepository;
+        this.userService= userService;
+        this.customerService =  customerService;
+        
     }
 
     @Override
@@ -53,4 +60,15 @@ public class CountryServiceImpl implements CountryService {
         log.debug("Request to delete Country : {}", id);
         countryRepository.deleteById(id);
     }
+
+	@Override
+	public Optional<Customer> setCountryForCustomer(Long countryId) {
+		
+		return userService.getUserWithAuthorities()
+	            .map(data-> {
+	           Customer customer  =	customerService.findByIdpCode(data.getLogin()).get();
+	           customer.setCountryId(countryId);
+	           return customerService.save(customer);
+	            });
+	}
 }

@@ -1,7 +1,9 @@
 package com.thasheel.web.rest;
 
 import java.net.URISyntaxException;
+import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -14,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,11 +27,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.thasheel.domain.Country;
 import com.thasheel.domain.Customer;
 import com.thasheel.domain.User;
 import com.thasheel.repository.UserRepository;
 import com.thasheel.security.jwt.JWTFilter;
 import com.thasheel.security.jwt.TokenProvider;
+import com.thasheel.service.CountryService;
 import com.thasheel.service.CustomerService;
 import com.thasheel.service.MailService;
 import com.thasheel.service.UserService;
@@ -66,15 +71,15 @@ public class CustomerController {
 	    private final UserRepository userRepository;
 
 	    private final UserService userService;
-
+	    private final CountryService countryService;
 	    private final CustomerService customerService;
 	    private final TokenProvider tokenProvider;
 
 	    private final AuthenticationManagerBuilder authenticationManagerBuilder;
 	    private final MailService mailService;
 
-	    public CustomerController(CustomerService customerService,TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UserRepository userRepository, UserService userService, MailService mailService) {
-	    	
+	    public CustomerController(CountryService countryService,CustomerService customerService,TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UserRepository userRepository, UserService userService, MailService mailService) {
+	    	this.countryService=countryService;
 	    	this.tokenProvider = tokenProvider;
 	        this.authenticationManagerBuilder = authenticationManagerBuilder;
 	        this.userRepository = userRepository;
@@ -122,7 +127,7 @@ public class CustomerController {
 	    
 	    @PostMapping("/authenticate")
 	    public ResponseEntity<JWTToken> authorize(@Valid @RequestBody LoginVM loginVM) {
-
+try {
 	        UsernamePasswordAuthenticationToken authenticationToken =
 	            new UsernamePasswordAuthenticationToken(loginVM.getUsername(), loginVM.getPassword());
 
@@ -133,7 +138,28 @@ public class CustomerController {
 	        HttpHeaders httpHeaders = new HttpHeaders();
 	        httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
 	        return new ResponseEntity<>(new JWTToken(jwt), httpHeaders, HttpStatus.OK);
+}
+		catch (Exception exception) {
+	       throw new InvalidPasswordException();
+	        }
 	    }
+	    
+	    
+	    /**
+	     * {@code GET  /authenticate} : check if the user is authenticated, and return its login.
+	     *
+	     * @param request the HTTP request.
+	     * @return the login if the user is authenticated.
+	     */
+	    @GetMapping("/authenticate")
+	    public String isAuthenticated(HttpServletRequest request) {
+	        log.debug("REST request to check if the current user is authenticated");
+	        return request.getRemoteUser();
+	    }
+	    
+	  
+	    
+	    
 	    
 	    /**
 	     * {@code PUT  /customers} : Updates an existing customer.

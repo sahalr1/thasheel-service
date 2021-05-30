@@ -74,48 +74,48 @@ public class CustomerNewsController {
         log.debug("REST request to get all News");
         return newsService.findAll();
     }
-    @PostMapping("/news/apply")
-    public ResponseEntity<NewsApplied> applyNews(@RequestBody NewsApplied newsApplied) throws URISyntaxException {
-        log.debug("REST request to save NewsApplied : {}", newsApplied);
-        if (newsApplied.getId() != null) {
-            throw new BadRequestAlertException("A new newsApplied cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        NewsApplied result = newsAppliedService.save(newsApplied);
-        return ResponseEntity.created(new URI("/api/news-applieds/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-            .body(result);
-    }
-    
-    @GetMapping("/news/apply/check/{newsId}")
-    public NewsApplied checkUserAlreadyApplied(@PathVariable Long newsId,HttpServletRequest request) {
-        log.debug("REST request to know whether user applied News or not");
-       // BranchManager manager= branchManagerServiceImpl.findOne(newsService.findOne(newsId).get().getBranch().getManager().getId()).get();
-        Customer customer= customerServiceImpl.findByIdpCode(request.getRemoteUser()).get();
-        
-        Optional<NewsApplied> newsApplied=newsAppliedService.checkUserAlreadyApplied(newsId,customer.getId());
-        if(!newsApplied.isPresent())
-        {
-        	throw new UserNotAppliedException();
-        }
-        
-        
-        return newsApplied.get();
-    }
-    
-    
-    /**
-     * {@code GET  /news-applieds} : get all the newsApplieds.
-     *
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of newsApplieds in body.
-     */
-    @GetMapping("/news/apply/me")
-    public List<NewsApplied> getAllNewsApplieds(HttpServletRequest request) {
-        log.debug("REST request to get all NewsApplieds");
-        
-        Customer customer= customerServiceImpl.findByIdpCode(request.getRemoteUser()).get();
-            
-        return newsAppliedService.findAllByCustomerId(customer.getId());
-    }
+//    @PostMapping("/news/apply")
+//    public ResponseEntity<NewsApplied> applyNews(@RequestBody NewsApplied newsApplied) throws URISyntaxException {
+//        log.debug("REST request to save NewsApplied : {}", newsApplied);
+//        if (newsApplied.getId() != null) {
+//            throw new BadRequestAlertException("A new newsApplied cannot already have an ID", ENTITY_NAME, "idexists");
+//        }
+//        NewsApplied result = newsAppliedService.save(newsApplied);
+//        return ResponseEntity.created(new URI("/api/news-applieds/" + result.getId()))
+//            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+//            .body(result);
+//    }
+//    
+//    @GetMapping("/news/apply/check/{newsId}")
+//    public NewsApplied checkUserAlreadyApplied(@PathVariable Long newsId,HttpServletRequest request) {
+//        log.debug("REST request to know whether user applied News or not");
+//       // BranchManager manager= branchManagerServiceImpl.findOne(newsService.findOne(newsId).get().getBranch().getManager().getId()).get();
+//        Customer customer= customerServiceImpl.findByIdpCode(request.getRemoteUser()).get();
+//        
+//        Optional<NewsApplied> newsApplied=newsAppliedService.checkUserAlreadyApplied(newsId,customer.getId());
+//        if(!newsApplied.isPresent())
+//        {
+//        	throw new UserNotAppliedException();
+//        }
+//        
+//        
+//        return newsApplied.get();
+//    }
+//    
+//    
+//    /**
+//     * {@code GET  /news-applieds} : get all the newsApplieds.
+//     *
+//     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of newsApplieds in body.
+//     */
+//    @GetMapping("/news/apply/me")
+//    public List<NewsApplied> getAllNewsApplieds(HttpServletRequest request) {
+//        log.debug("REST request to get all NewsApplieds");
+//        
+//        Customer customer= customerServiceImpl.findByIdpCode(request.getRemoteUser()).get();
+//            
+//        return newsAppliedService.findAllByCustomerId(customer.getId());
+//    }
     
     @PostMapping("/news/save")
     public ResponseEntity<SavedNews> createSavedNews(@RequestBody SavedNews savedNews) throws URISyntaxException {

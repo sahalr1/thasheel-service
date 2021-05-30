@@ -1,6 +1,7 @@
 package com.thasheel.service;
 
 import com.thasheel.domain.Country;
+import com.thasheel.domain.Customer;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,4 +41,6 @@ public interface CountryService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+	Optional<Customer> setCountryForCustomer(Long countryId);
 }

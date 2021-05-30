@@ -18,6 +18,7 @@ import org.zalando.problem.spring.web.advice.ProblemHandling;
 import org.zalando.problem.spring.web.advice.security.SecurityAdviceTrait;
 import org.zalando.problem.violations.ConstraintViolationProblem;
 
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
@@ -96,6 +97,13 @@ public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait
         EmailAlreadyUsedException problem = new EmailAlreadyUsedException();
         return create(problem, request, HeaderUtil.createFailureAlert(applicationName,  true, problem.getEntityName(), problem.getErrorKey(), problem.getMessage()));
     }
+    
+    @ExceptionHandler
+    public ResponseEntity<Problem> handleMobileAlreadyUsedException(com.thasheel.service.PhoneAlreadyUsedException ex, NativeWebRequest request) {
+    	PhoneAlreadyUsedException problem = new PhoneAlreadyUsedException();
+        return create(problem, request, HeaderUtil.createFailureAlert(applicationName,  true, problem.getEntityName(), problem.getErrorKey(), problem.getMessage()));
+    }
+    
 
     @ExceptionHandler
     public ResponseEntity<Problem> handleUsernameAlreadyUsedException(com.thasheel.service.UsernameAlreadyUsedException ex, NativeWebRequest request) {

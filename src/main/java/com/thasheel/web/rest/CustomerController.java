@@ -137,7 +137,7 @@ try {
 	        String jwt = tokenProvider.createToken(authentication, rememberMe);
 	        HttpHeaders httpHeaders = new HttpHeaders();
 	        httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
-	        return new ResponseEntity<>(new JWTToken(jwt), httpHeaders, HttpStatus.OK);
+	        return new ResponseEntity<>(new JWTToken(jwt,getCustomerByAccount()), httpHeaders, HttpStatus.OK);
 }
 		catch (Exception exception) {
 	       throw new InvalidPasswordException();
@@ -207,11 +207,12 @@ try {
 	     * Object to return as body in JWT Authentication.
 	     */
 	    static class JWTToken {
-
+	    	Customer customer;
 	        private String idToken;
 
-	        JWTToken(String idToken) {
+	        JWTToken(String idToken,Customer customer) {
 	            this.idToken = idToken;
+	            this.customer=customer;
 	        }
 
 	        @JsonProperty("id_token")
@@ -222,6 +223,16 @@ try {
 	        void setIdToken(String idToken) {
 	            this.idToken = idToken;
 	        }
+
+			public Customer getCustomer() {
+				return customer;
+			}
+
+			public void setCustomer(Customer customer) {
+				this.customer = customer;
+			}
+	        
+	        
 	    }
 	    
 	    

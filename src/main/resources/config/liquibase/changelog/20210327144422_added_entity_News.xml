@@ -34,6 +34,9 @@
             <column name="created_by_major_admin_id" type="bigint">
                 <constraints nullable="true" />
             </column>
+            <column name="country_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
             <column name="branch_id" type="bigint">
                 <constraints nullable="true" />
             </column>

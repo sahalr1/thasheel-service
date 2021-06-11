@@ -24,12 +24,15 @@ import com.thasheel.domain.Customer;
 import com.thasheel.domain.News;
 import com.thasheel.domain.NewsApplied;
 import com.thasheel.domain.SavedNews;
+import com.thasheel.service.CustomerService;
 import com.thasheel.service.NewsAppliedService;
 import com.thasheel.service.NewsService;
 import com.thasheel.service.SavedNewsService;
+import com.thasheel.service.UserService;
 import com.thasheel.service.UsernameAlreadyUsedException;
 import com.thasheel.service.impl.BranchManagerServiceImpl;
 import com.thasheel.service.impl.CustomerServiceImpl;
+
 import com.thasheel.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -47,18 +50,21 @@ public class CustomerNewsController {
 	    private String applicationName;
 
 	    private final NewsService newsService;
-	    
+	    private final UserService userService;
 	    private final NewsAppliedService newsAppliedService;
 	    
 	    private final BranchManagerServiceImpl branchManagerServiceImpl;
 	    
-	    private final CustomerServiceImpl customerServiceImpl;
+	    private final CustomerService customerService;
+	    
+	    
 	    
 	    private final SavedNewsService savedNewsService;
 
-	    public CustomerNewsController(SavedNewsService savedNewsService, CustomerServiceImpl customerServiceImpl , BranchManagerServiceImpl branchManagerServiceImpl,NewsService newsService,NewsAppliedService newsAppliedService) {
-	        this.savedNewsService = savedNewsService;
-			this.customerServiceImpl = customerServiceImpl;
+	    public CustomerNewsController(CustomerService customerService,UserService userService, SavedNewsService savedNewsService, BranchManagerServiceImpl branchManagerServiceImpl,NewsService newsService,NewsAppliedService newsAppliedService) {
+	        this.userService=userService;
+	    	this.savedNewsService = savedNewsService;
+			this.customerService=customerService;
 			this.branchManagerServiceImpl = branchManagerServiceImpl;
 			this.newsService = newsService;
 	        this.newsAppliedService=newsAppliedService;
@@ -74,48 +80,24 @@ public class CustomerNewsController {
         log.debug("REST request to get all News");
         return newsService.findAll();
     }
-//    @PostMapping("/news/apply")
-//    public ResponseEntity<NewsApplied> applyNews(@RequestBody NewsApplied newsApplied) throws URISyntaxException {
-//        log.debug("REST request to save NewsApplied : {}", newsApplied);
-//        if (newsApplied.getId() != null) {
-//            throw new BadRequestAlertException("A new newsApplied cannot already have an ID", ENTITY_NAME, "idexists");
-//        }
-//        NewsApplied result = newsAppliedService.save(newsApplied);
-//        return ResponseEntity.created(new URI("/api/news-applieds/" + result.getId()))
-//            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-//            .body(result);
-//    }
-//    
-//    @GetMapping("/news/apply/check/{newsId}")
-//    public NewsApplied checkUserAlreadyApplied(@PathVariable Long newsId,HttpServletRequest request) {
-//        log.debug("REST request to know whether user applied News or not");
-//       // BranchManager manager= branchManagerServiceImpl.findOne(newsService.findOne(newsId).get().getBranch().getManager().getId()).get();
-//        Customer customer= customerServiceImpl.findByIdpCode(request.getRemoteUser()).get();
-//        
-//        Optional<NewsApplied> newsApplied=newsAppliedService.checkUserAlreadyApplied(newsId,customer.getId());
-//        if(!newsApplied.isPresent())
-//        {
-//        	throw new UserNotAppliedException();
-//        }
-//        
-//        
-//        return newsApplied.get();
-//    }
-//    
-//    
-//    /**
-//     * {@code GET  /news-applieds} : get all the newsApplieds.
-//     *
-//     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of newsApplieds in body.
-//     */
-//    @GetMapping("/news/apply/me")
-//    public List<NewsApplied> getAllNewsApplieds(HttpServletRequest request) {
-//        log.debug("REST request to get all NewsApplieds");
-//        
-//        Customer customer= customerServiceImpl.findByIdpCode(request.getRemoteUser()).get();
-//            
-//        return newsAppliedService.findAllByCustomerId(customer.getId());
-//    }
+
+    /**
+     * {@code GET  /news} : get all the news.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of news in body.
+     */
+    @GetMapping("/news/country")
+    public List<News> getAllNewsbyCountry() {
+        log.debug("REST request to get all News");
+        
+        Customer customer= userService.getUserWithAuthorities()
+        .map(data-> customerService.findByIdpCode(data.getLogin())).get().get();
+        
+        
+        return newsService.findNewsbyCountryId(customer.getCountryId());
+    }
+
+    
     
     @PostMapping("/news/save")
     public ResponseEntity<SavedNews> createSavedNews(@RequestBody SavedNews savedNews) throws URISyntaxException {
@@ -137,7 +119,7 @@ public class CustomerNewsController {
     @GetMapping("/news/save")
     public List<SavedNews> getAllSavedNews(HttpServletRequest request) {
         log.debug("REST request to get all SavedNews");
-        Customer customer= customerServiceImpl.findByIdpCode(request.getRemoteUser()).get();
+        Customer customer= customerService.findByIdpCode(request.getRemoteUser()).get();
         
         return savedNewsService.findAllByCustomerId(customer.getId());
     }

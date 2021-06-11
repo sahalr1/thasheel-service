@@ -53,4 +53,10 @@ public class NewsServiceImpl implements NewsService {
         log.debug("Request to delete News : {}", id);
         newsRepository.deleteById(id);
     }
+
+	@Override
+	public List<News> findNewsbyCountryId(Long countryId) {
+		 log.debug("Request to get all News by country id");
+	        return newsRepository.findAllByCountry(countryId);
+	}
 }

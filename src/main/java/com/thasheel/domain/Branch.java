@@ -39,6 +39,10 @@ public class Branch implements Serializable {
     @JsonIgnoreProperties(value = "branches", allowSetters = true)
     private Country country;
 
+    @ManyToOne
+    @JsonIgnoreProperties(value = "assignedBranches", allowSetters = true)
+    private ThasheelService thasheelService;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
@@ -124,6 +128,19 @@ public class Branch implements Serializable {
 
     public void setCountry(Country country) {
         this.country = country;
+    }
+
+    public ThasheelService getThasheelService() {
+        return thasheelService;
+    }
+
+    public Branch thasheelService(ThasheelService thasheelService) {
+        this.thasheelService = thasheelService;
+        return this;
+    }
+
+    public void setThasheelService(ThasheelService thasheelService) {
+        this.thasheelService = thasheelService;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

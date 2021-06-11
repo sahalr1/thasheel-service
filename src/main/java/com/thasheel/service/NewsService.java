@@ -40,4 +40,6 @@ public interface NewsService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+	List<News> findNewsbyCountryId(Long countryId);
 }

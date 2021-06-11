@@ -1,12 +1,12 @@
 package com.thasheel.service.impl;
 
-import com.thasheel.service.NewsAppliedService;
 import com.thasheel.domain.News;
 import com.thasheel.domain.NewsApplied;
 import com.thasheel.domain.enumeration.NEWSAPPLIEDSTATUS;
 import com.thasheel.repository.BranchRepository;
 import com.thasheel.repository.NewsAppliedRepository;
 import com.thasheel.repository.NewsRepository;
+import com.thasheel.service.NewsAppliedService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -2,6 +2,8 @@ package com.thasheel.repository;
 
 import com.thasheel.domain.News;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
@@ -11,4 +13,6 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface NewsRepository extends JpaRepository<News, Long> {
+
+	List<News> findAllByCountry(Long countryId);
 }

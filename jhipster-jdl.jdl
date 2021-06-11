@@ -6,26 +6,50 @@ countryId Long,
 isEnabled Boolean,
 isCompletePofile Boolean
 }
-entity NewsApplied
+entity ThasheelService
+{
+name String,
+description String,
+createdOn Instant,
+createdMajorAdminId Long
+}
+entity NeedfulServiceDocuments
+{
+name String,
+fileType FILETYPE,
+isRequired Boolean
+}
+enum FILETYPE{
+IMAGE 
+}
+
+
+entity ServiceApplied
 {
 customerId Long,
-newsId Long,
+serviceId Long,
 branchManagerId Long,
 createdTime Instant,
 updatedTime Instant,
 reprocessDescription String,
-currentStatus NEWSAPPLIEDSTATUS
+currentStatus SERVICEAPPLIEDSTATUS
 }
-entity NewsAppliedStatusHistory
+entity ServiceAppliedDocuments
 {
-status NEWSAPPLIEDSTATUS,
+needfulServiceDocmentId Long,
+uploadDocument Blob
+}
+
+entity ServiceAppliedStatusHistory
+{
+
+status SERVICEAPPLIEDSTATUS,
 description String,
 updatedTime Instant,
 actionDoneBranchManagerId String
 
-
 }
-enum NEWSAPPLIEDSTATUS
+enum SERVICEAPPLIEDSTATUS
 {
 APPLIED , REPROCESS , APPROVED, REJECTED , CANCELLED
 }
@@ -76,7 +100,9 @@ newsId Long
 }
 relationship OneToMany {
 	Country{branches} to Branch{country},
-    NewsApplied{history} to NewsAppliedStatusHistory
+    ThasheelService{needFulDocuments} to NeedfulServiceDocuments,
+    ServiceApplied{history} to ServiceAppliedStatusHistory,
+    ServiceApplied{uploadedDocuments} to ServiceAppliedDocuments
 }
 relationship OneToMany {
 	News{comments} to Comment{news}
@@ -89,11 +115,14 @@ relationship OneToOne {
 UserExtra{user} to User
 }
 relationship OneToMany{
-Customer{comments} to Comment{customer}
+Customer{comments} to Comment{customer},
+ThasheelService{assignedBranches} to Branch
 }
 
 relationship ManyToOne{
+News{country} to Country,
 News{branch} to Branch
+
 }
 
 service all with serviceImpl

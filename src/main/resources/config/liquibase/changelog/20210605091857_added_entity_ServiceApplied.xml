@@ -9,39 +9,41 @@
         <property name="autoIncrement" value="true"/>
 
     <!--
-        Added the entity Branch.
+        Added the entity ServiceApplied.
     -->
-    <changeSet id="20210327144022-1" author="jhipster">
-        <createTable tableName="branch">
+    <changeSet id="20210605091857-1" author="jhipster">
+        <createTable tableName="service_applied">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="street_address" type="varchar(255)">
+            <column name="customer_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="postal_code" type="varchar(255)">
+            <column name="service_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="city" type="varchar(255)">
+            <column name="branch_manager_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="state_province" type="varchar(255)">
+            <column name="created_time" type="datetime">
                 <constraints nullable="true" />
             </column>
-            <column name="manager_id" type="bigint">
-                <constraints unique="true" nullable="true" uniqueConstraintName="ux_branch_manager_id" />
-            </column>
-            <column name="country_id" type="bigint">
+            <column name="updated_time" type="datetime">
                 <constraints nullable="true" />
             </column>
-            <column name="thasheel_service_id" type="bigint">
+            <column name="reprocess_description" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="current_status" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
+        <dropDefaultValue tableName="service_applied" columnName="created_time" columnDataType="datetime"/>
+        <dropDefaultValue tableName="service_applied" columnName="updated_time" columnDataType="datetime"/>
     </changeSet>
 
-    <changeSet id="20210327144022-1-relations" author="jhipster">
+    <changeSet id="20210605091857-1-relations" author="jhipster">
 
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
@@ -54,16 +56,19 @@
           This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
           Spring Boot configuration key.
     -->
-    <changeSet id="20210327144022-1-data" author="jhipster" context="faker">
+    <changeSet id="20210605091857-1-data" author="jhipster" context="faker">
         <loadData
-                  file="config/liquibase/fake-data/branch.csv"
+                  file="config/liquibase/fake-data/service_applied.csv"
                   separator=";"
-                  tableName="branch">
+                  tableName="service_applied">
             <column name="id" type="numeric"/>
-            <column name="street_address" type="string"/>
-            <column name="postal_code" type="string"/>
-            <column name="city" type="string"/>
-            <column name="state_province" type="string"/>
+            <column name="customer_id" type="numeric"/>
+            <column name="service_id" type="numeric"/>
+            <column name="branch_manager_id" type="numeric"/>
+            <column name="created_time" type="datetime"/>
+            <column name="updated_time" type="datetime"/>
+            <column name="reprocess_description" type="string"/>
+            <column name="current_status" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

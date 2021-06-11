@@ -46,6 +46,10 @@ public class News implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(value = "news", allowSetters = true)
+    private Country country;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = "news", allowSetters = true)
     private Branch branch;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -158,6 +162,19 @@ public class News implements Serializable {
 
     public void setComments(Set<Comment> comments) {
         this.comments = comments;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public News country(Country country) {
+        this.country = country;
+        return this;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     public Branch getBranch() {

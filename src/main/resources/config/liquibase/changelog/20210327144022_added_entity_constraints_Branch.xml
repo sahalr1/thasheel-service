@@ -20,5 +20,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="country"/>
 
+        <addForeignKeyConstraint baseColumnNames="thasheel_service_id"
+                                 baseTableName="branch"
+                                 constraintName="fk_branch_thasheel_service_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="thasheel_service"/>
+
     </changeSet>
 </databaseChangeLog>

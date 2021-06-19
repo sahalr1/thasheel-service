@@ -1,11 +1,5 @@
-id;name;file_type;is_required
-1;Gibraltar Kentucky;IMAGE;false
-2;magnetic;IMAGE;false
-3;Computers Metical;IMAGE;true
-4;Visionary system;IMAGE;false
-5;Regional end-to-end Buckinghamshire;IMAGE;true
-6;enable web services Upgradable;IMAGE;true
-7;hack Idaho mint green;IMAGE;true
-8;Handcrafted Soft Soap copy Soft;IMAGE;false
-9;relationships Gorgeous Concrete Shirt e-business;IMAGE;false
-10;payment Tasty Steel Pizza;IMAGE;true
+id;name;file_type;is_required;thasheel_service_id
+1;User Photo;IMAGE;true;1
+2;Passport;IMAGE;true;1
+3;Passport;IMAGE;true;2
+

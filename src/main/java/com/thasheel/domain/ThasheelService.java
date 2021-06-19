@@ -33,6 +33,15 @@ public class ThasheelService implements Serializable {
     @Column(name = "created_major_admin_id")
     private Long createdMajorAdminId;
 
+    @Column(name = "is_expired")
+    private Boolean isExpired;
+
+    @Column(name = "validity_date")
+    private Instant validityDate;
+
+    @Column(name = "amount")
+    private Double amount;
+
     @OneToMany(mappedBy = "thasheelService")
     private Set<NeedfulServiceDocuments> needFulDocuments = new HashSet<>();
 
@@ -98,6 +107,45 @@ public class ThasheelService implements Serializable {
 
     public void setCreatedMajorAdminId(Long createdMajorAdminId) {
         this.createdMajorAdminId = createdMajorAdminId;
+    }
+
+    public Boolean isIsExpired() {
+        return isExpired;
+    }
+
+    public ThasheelService isExpired(Boolean isExpired) {
+        this.isExpired = isExpired;
+        return this;
+    }
+
+    public void setIsExpired(Boolean isExpired) {
+        this.isExpired = isExpired;
+    }
+
+    public Instant getValidityDate() {
+        return validityDate;
+    }
+
+    public ThasheelService validityDate(Instant validityDate) {
+        this.validityDate = validityDate;
+        return this;
+    }
+
+    public void setValidityDate(Instant validityDate) {
+        this.validityDate = validityDate;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public ThasheelService amount(Double amount) {
+        this.amount = amount;
+        return this;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 
     public Set<NeedfulServiceDocuments> getNeedFulDocuments() {
@@ -176,6 +224,9 @@ public class ThasheelService implements Serializable {
             ", description='" + getDescription() + "'" +
             ", createdOn='" + getCreatedOn() + "'" +
             ", createdMajorAdminId=" + getCreatedMajorAdminId() +
+            ", isExpired='" + isIsExpired() + "'" +
+            ", validityDate='" + getValidityDate() + "'" +
+            ", amount=" + getAmount() +
             "}";
     }
 }

@@ -11,7 +11,10 @@ entity ThasheelService
 name String,
 description String,
 createdOn Instant,
-createdMajorAdminId Long
+createdMajorAdminId Long,
+isExpired Boolean,
+validityDate Instant,
+amount Double
 }
 entity NeedfulServiceDocuments
 {

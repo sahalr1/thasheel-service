@@ -44,6 +44,15 @@ public class ThasheelServiceResourceIT {
     private static final Long DEFAULT_CREATED_MAJOR_ADMIN_ID = 1L;
     private static final Long UPDATED_CREATED_MAJOR_ADMIN_ID = 2L;
 
+    private static final Boolean DEFAULT_IS_EXPIRED = false;
+    private static final Boolean UPDATED_IS_EXPIRED = true;
+
+    private static final Instant DEFAULT_VALIDITY_DATE = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_VALIDITY_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
+    private static final Double DEFAULT_AMOUNT = 1D;
+    private static final Double UPDATED_AMOUNT = 2D;
+
     @Autowired
     private ThasheelServiceRepository thasheelServiceRepository;
 
@@ -69,7 +78,10 @@ public class ThasheelServiceResourceIT {
             .name(DEFAULT_NAME)
             .description(DEFAULT_DESCRIPTION)
             .createdOn(DEFAULT_CREATED_ON)
-            .createdMajorAdminId(DEFAULT_CREATED_MAJOR_ADMIN_ID);
+            .createdMajorAdminId(DEFAULT_CREATED_MAJOR_ADMIN_ID)
+            .isExpired(DEFAULT_IS_EXPIRED)
+            .validityDate(DEFAULT_VALIDITY_DATE)
+            .amount(DEFAULT_AMOUNT);
         return thasheelService;
     }
     /**
@@ -83,7 +95,10 @@ public class ThasheelServiceResourceIT {
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION)
             .createdOn(UPDATED_CREATED_ON)
-            .createdMajorAdminId(UPDATED_CREATED_MAJOR_ADMIN_ID);
+            .createdMajorAdminId(UPDATED_CREATED_MAJOR_ADMIN_ID)
+            .isExpired(UPDATED_IS_EXPIRED)
+            .validityDate(UPDATED_VALIDITY_DATE)
+            .amount(UPDATED_AMOUNT);
         return thasheelService;
     }
 
@@ -110,6 +125,9 @@ public class ThasheelServiceResourceIT {
         assertThat(testThasheelService.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testThasheelService.getCreatedOn()).isEqualTo(DEFAULT_CREATED_ON);
         assertThat(testThasheelService.getCreatedMajorAdminId()).isEqualTo(DEFAULT_CREATED_MAJOR_ADMIN_ID);
+        assertThat(testThasheelService.isIsExpired()).isEqualTo(DEFAULT_IS_EXPIRED);
+        assertThat(testThasheelService.getValidityDate()).isEqualTo(DEFAULT_VALIDITY_DATE);
+        assertThat(testThasheelService.getAmount()).isEqualTo(DEFAULT_AMOUNT);
     }
 
     @Test
@@ -146,7 +164,10 @@ public class ThasheelServiceResourceIT {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
             .andExpect(jsonPath("$.[*].createdOn").value(hasItem(DEFAULT_CREATED_ON.toString())))
-            .andExpect(jsonPath("$.[*].createdMajorAdminId").value(hasItem(DEFAULT_CREATED_MAJOR_ADMIN_ID.intValue())));
+            .andExpect(jsonPath("$.[*].createdMajorAdminId").value(hasItem(DEFAULT_CREATED_MAJOR_ADMIN_ID.intValue())))
+            .andExpect(jsonPath("$.[*].isExpired").value(hasItem(DEFAULT_IS_EXPIRED.booleanValue())))
+            .andExpect(jsonPath("$.[*].validityDate").value(hasItem(DEFAULT_VALIDITY_DATE.toString())))
+            .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.doubleValue())));
     }
     
     @Test
@@ -163,7 +184,10 @@ public class ThasheelServiceResourceIT {
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
             .andExpect(jsonPath("$.createdOn").value(DEFAULT_CREATED_ON.toString()))
-            .andExpect(jsonPath("$.createdMajorAdminId").value(DEFAULT_CREATED_MAJOR_ADMIN_ID.intValue()));
+            .andExpect(jsonPath("$.createdMajorAdminId").value(DEFAULT_CREATED_MAJOR_ADMIN_ID.intValue()))
+            .andExpect(jsonPath("$.isExpired").value(DEFAULT_IS_EXPIRED.booleanValue()))
+            .andExpect(jsonPath("$.validityDate").value(DEFAULT_VALIDITY_DATE.toString()))
+            .andExpect(jsonPath("$.amount").value(DEFAULT_AMOUNT.doubleValue()));
     }
     @Test
     @Transactional
@@ -189,7 +213,10 @@ public class ThasheelServiceResourceIT {
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION)
             .createdOn(UPDATED_CREATED_ON)
-            .createdMajorAdminId(UPDATED_CREATED_MAJOR_ADMIN_ID);
+            .createdMajorAdminId(UPDATED_CREATED_MAJOR_ADMIN_ID)
+            .isExpired(UPDATED_IS_EXPIRED)
+            .validityDate(UPDATED_VALIDITY_DATE)
+            .amount(UPDATED_AMOUNT);
 
         restThasheelServiceMockMvc.perform(put("/api/thasheel-services")
             .contentType(MediaType.APPLICATION_JSON)
@@ -204,6 +231,9 @@ public class ThasheelServiceResourceIT {
         assertThat(testThasheelService.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testThasheelService.getCreatedOn()).isEqualTo(UPDATED_CREATED_ON);
         assertThat(testThasheelService.getCreatedMajorAdminId()).isEqualTo(UPDATED_CREATED_MAJOR_ADMIN_ID);
+        assertThat(testThasheelService.isIsExpired()).isEqualTo(UPDATED_IS_EXPIRED);
+        assertThat(testThasheelService.getValidityDate()).isEqualTo(UPDATED_VALIDITY_DATE);
+        assertThat(testThasheelService.getAmount()).isEqualTo(UPDATED_AMOUNT);
     }
 
     @Test

@@ -1,11 +1,5 @@
-id;name;description;created_on;created_major_admin_id
-1;CFA Franc BEAC;Kroon;2021-06-05T04:17:16;59922
-2;Internal Guinea Franc;International;2021-06-04T21:43:22;40176
-3;Integration;Shoes;2021-06-05T08:22:04;67627
-4;Cape Verde functionalities;FTP input redundant;2021-06-04T14:18:45;1806
-5;Directives transitional virtual;Nicaragua Corporate;2021-06-04T11:19:57;12708
-6;hacking Investor Lead;homogeneous Ergonomic communities;2021-06-04T14:39:55;30798
-7;Arizona Iceland Krona Stravenue;overriding connect;2021-06-05T05:02:24;43749
-8;Glens Hong Kong Dollar Plastic;HDD;2021-06-05T00:37:52;82849
-9;yellow;COM leverage Grass-roots;2021-06-04T13:27:36;29815
-10;Solutions deposit;Research deploy;2021-06-04T20:31:08;5812
+id;name;description;created_on;created_major_admin_id;is_expired;validity_date;amount
+1;Licence Application;The Documents need for license are user photo and passport;2021-06-19T00:00:00;1;false;2021-07-04T00:00:00;500
+2;Passport Renewal Application;The Documents need for Passport is old passport;2021-06-19T00:00:00;1;false;2021-07-04T00:00:00;500
+
+

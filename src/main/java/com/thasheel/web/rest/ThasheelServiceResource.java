@@ -21,7 +21,7 @@ import java.util.Optional;
  * REST controller for managing {@link com.thasheel.domain.ThasheelService}.
  */
 @RestController
-@RequestMapping("/apis")
+@RequestMapping("/api")
 public class ThasheelServiceResource {
 
     private final Logger log = LoggerFactory.getLogger(ThasheelServiceResource.class);

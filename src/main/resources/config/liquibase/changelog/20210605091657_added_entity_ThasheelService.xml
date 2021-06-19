@@ -28,9 +28,19 @@
             <column name="created_major_admin_id" type="bigint">
                 <constraints nullable="true" />
             </column>
+            <column name="is_expired" type="boolean">
+                <constraints nullable="true" />
+            </column>
+            <column name="validity_date" type="datetime">
+                <constraints nullable="true" />
+            </column>
+            <column name="amount" type="double">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="thasheel_service" columnName="created_on" columnDataType="datetime"/>
+        <dropDefaultValue tableName="thasheel_service" columnName="validity_date" columnDataType="datetime"/>
     </changeSet>
 
     <changeSet id="20210605091657-1-relations" author="jhipster">
@@ -56,6 +66,9 @@
             <column name="description" type="string"/>
             <column name="created_on" type="datetime"/>
             <column name="created_major_admin_id" type="numeric"/>
+            <column name="is_expired" type="boolean"/>
+            <column name="validity_date" type="datetime"/>
+            <column name="amount" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>
